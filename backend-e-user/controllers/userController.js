@@ -26,7 +26,7 @@ exports.getAllUsers = function (req, res, next) {
   con.query(queries, (err, rows) => {
     console.log(rows);
     if (err) throw err;
-    res.send({ data: rows });
+    res.send({data:rows});
   });
 };
 
