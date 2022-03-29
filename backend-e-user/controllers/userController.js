@@ -14,7 +14,7 @@ exports.createUser = function (req, res, next) {
     reqBody.PaymentInfo,
   ];
   const insertData =
-    "insert into users (userName, email, sex, DOB, ContactNo, BillingAddress, DeliveryAddress, PaymentInfo) values (?,?,?,?,?,?,?,?)";
+    "insert into userData (userName, email, sex, DOB, ContactNo, BillingAddress, DeliveryAddress, PaymentInfo) values (?,?,?,?,?,?,?,?)";
   con.query(insertData, arrval, (err, rows) => {
     if (err) throw err;
     res.send({ data: rows });
@@ -22,7 +22,7 @@ exports.createUser = function (req, res, next) {
 };
 
 exports.getAllUsers = function (req, res, next) {
-  const queries = "select * from users";
+  const queries = "select * from userData";
   con.query(queries, (err, rows) => {
     console.log(rows);
     if (err) throw err;
@@ -31,7 +31,7 @@ exports.getAllUsers = function (req, res, next) {
 };
 
 exports.getUserById = function (req, res, next) {
-  const queries = "select * from users where UserId = ?";
+  const queries = "select * from userData where UserId = ?";
   con.query(queries, [req.params.id], (err, rows) => {
     console.log(rows);
     if (err) throw err;
@@ -40,7 +40,7 @@ exports.getUserById = function (req, res, next) {
 };
 
 exports.deleteData = function (req, res, next) {
-  const deleteUserData = "delete from users where UserId = ? ";
+  const deleteUserData = "delete from userData where UserId = ? ";
   con.query(deleteUserData, [req.params.id], (err, rows) => {
     console.log(rows);
     if (err) throw err;
@@ -65,7 +65,7 @@ exports.updateData = function (req, res, next) {
   ];
   console.log(arrval);
   con.query(
-    "UPDATE users SET `userName`=?,`email`=?,`sex`=?,`DOB`=?, `ContactNo`=?,`BillingAddress`=?,`DeliveryAddress`=?, `PaymentInfo`=? where `UserId`=?",
+    "UPDATE userData SET `userName`=?,`email`=?,`sex`=?,`DOB`=?, `ContactNo`=?,`BillingAddress`=?,`DeliveryAddress`=?, `PaymentInfo`=? where `UserId`=?",
     arrval,
     function (err, rows) {
       if (err) throw err;

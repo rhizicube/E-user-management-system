@@ -1,0 +1,27 @@
+version: '2.2'
+services:
+  dockersql:
+    image: mysql/mysql-server
+    volumes:
+      - /home/shubhi/docker-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - proxynet
+    hostname: pensive_cartwright
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  dockernode:
+    image: node-test
+    ports:
+      - "5000:5000"
+    networks:
+      - proxynet
+    depends_on:
+      dockersql:
+        condition: service_healthy
+networks:
+  proxynet:
+    driver: bridge
